@@ -1,0 +1,41 @@
+[
+  {
+    "id": "auth_failed_root",
+    "title": "Failed root authentication",
+    "severity": "high",
+    "description": "Root login failure can indicate brute force or credential misuse.",
+    "match": {
+      "all": [
+        {"field": "user", "equals": "root"},
+        {"field": "event", "contains": "Failed password"}
+      ]
+    }
+  },
+  {
+    "id": "secret_in_log",
+    "title": "Secret-looking value in log text",
+    "severity": "critical",
+    "description": "A token, password, api key, or secret marker was present after ingestion.",
+    "match": {
+      "any": [
+        {"field": "event", "contains": "token="},
+        {"field": "event", "contains": "password="},
+        {"field": "event", "contains": "api_key="},
+        {"field": "_raw", "contains": "authorization:"}
+      ]
+    }
+  },
+  {
+    "id": "external_failed_login",
+    "title": "Failed login from external network",
+    "severity": "medium",
+    "description": "Failed login from non-RFC1918 source after masking.",
+    "match": {
+      "all": [
+        {"field": "event", "contains": "Failed"},
+        {"field": "src_ip", "regex": "^(?!10\\.|172\\.|192\\.168\\.).+"}
+      ]
+    }
+  }
+]
+

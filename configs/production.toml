@@ -1,0 +1,44 @@
+[runtime]
+mode = "auto"
+max_memory_mb = 8192
+small_run_max_events = 1000000
+chunk_seconds = 3600
+target_events_per_chunk = 200000
+min_chunk_seconds = 60
+max_chunk_seconds = 21600
+partition_fields = ["index", "sourcetype", "host", "source"]
+max_rows_per_request = 50000
+tmp_dir = "tmp"
+output_dir = "data"
+reports_dir = "reports"
+delete_temp_after_success = true
+compress_jsonl = true
+gzip_compresslevel = 3
+min_free_disk_mb = 20480
+
+[splunk]
+base_url_env = "SPLUNK_BASE_URL"
+token_env = "SPLUNK_TOKEN"
+username_env = "SPLUNK_USERNAME"
+password_env = "SPLUNK_PASSWORD"
+verify_tls_env = "SPLUNK_VERIFY_TLS"
+request_timeout_seconds = 600
+retry_attempts = 10
+retry_backoff_seconds = 3
+# Independent time windows are safe to run concurrently; tune to Splunk capacity.
+parallel_workers = 4
+# Verified mode creates completed Splunk jobs and retrieves checked result pages.
+export_transport = "verified"
+result_page_rows = 1000
+max_job_rows = 1000000
+job_timeout_seconds = 1800
+
+[privacy]
+mask_ips = true
+mask_users = false
+deny_fields = ["password", "passwd", "token", "secret", "authorization", "session", "cookie", "api_key"]
+allow_fields = []
+
+[analysis]
+top_n = 50
+rare_threshold = 3

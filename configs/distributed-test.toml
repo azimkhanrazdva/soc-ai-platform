@@ -1,0 +1,38 @@
+[runtime]
+mode = "chunked"
+max_memory_mb = 24576
+small_run_max_events = 1000000
+chunk_seconds = 21600
+target_events_per_chunk = 1000000
+min_chunk_seconds = 60
+max_chunk_seconds = 21600
+partition_fields = ["index", "sourcetype", "host", "source"]
+max_rows_per_request = 50000
+tmp_dir = "/var/lib/soc-ai/tmp"
+output_dir = "/var/lib/soc-ai/data"
+reports_dir = "/var/lib/soc-ai/reports"
+delete_temp_after_success = true
+compress_jsonl = true
+max_rule_findings = 100000
+
+[splunk]
+base_url_env = "SPLUNK_BASE_URL"
+token_env = "SPLUNK_TOKEN"
+username_env = "SPLUNK_USERNAME"
+password_env = "SPLUNK_PASSWORD"
+verify_tls_env = "SPLUNK_VERIFY_TLS"
+request_timeout_seconds = 300
+retry_attempts = 8
+retry_backoff_seconds = 3
+parallel_workers = 4
+
+[privacy]
+mask_ips = true
+mask_users = false
+deny_fields = ["password", "passwd", "token", "secret", "authorization", "session", "cookie", "api_key"]
+allow_fields = []
+
+[analysis]
+top_n = 50
+rare_threshold = 3
+max_unique_values = 100000

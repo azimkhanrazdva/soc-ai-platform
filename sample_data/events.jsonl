@@ -1,0 +1,5 @@
+{"_time":"2026-09-03T10:00:00Z","host":"web-01","source":"auth.log","sourcetype":"linux_secure","user":"alice","src_ip":"203.0.113.10","event":"Accepted password for alice from 203.0.113.10 port 53000"}
+{"_time":"2026-09-03T10:02:00Z","host":"web-01","source":"auth.log","sourcetype":"linux_secure","user":"root","src_ip":"203.0.113.44","event":"Failed password for root from 203.0.113.44 port 53001"}
+{"_time":"2026-09-03T10:03:00Z","host":"db-01","source":"app.log","sourcetype":"app_json","user":"service","src_ip":"203.0.113.15","event":"db query latency_ms=812 token=abcd1234"}
+{"_time":"2026-09-03T10:04:00Z","host":"web-02","source":"auth.log","sourcetype":"linux_secure","user":"root","src_ip":"203.0.113.44","event":"Failed password for root from 203.0.113.44 port 53002"}
+

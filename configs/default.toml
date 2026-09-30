@@ -1,0 +1,39 @@
+[runtime]
+mode = "auto"
+max_memory_mb = 4096
+small_run_max_events = 1000000
+chunk_seconds = 3600
+target_events_per_chunk = 1000000
+min_chunk_seconds = 60
+max_chunk_seconds = 86400
+partition_fields = ["index", "sourcetype", "host"]
+# Advisory target only. The exporter must not truncate results with head/limit.
+max_rows_per_request = 50000
+tmp_dir = "tmp"
+output_dir = "data"
+reports_dir = "reports"
+delete_temp_after_success = true
+compress_jsonl = true
+max_rule_findings = 100000
+
+[splunk]
+base_url_env = "SPLUNK_BASE_URL"
+token_env = "SPLUNK_TOKEN"
+username_env = "SPLUNK_USERNAME"
+password_env = "SPLUNK_PASSWORD"
+verify_tls_env = "SPLUNK_VERIFY_TLS"
+request_timeout_seconds = 120
+retry_attempts = 5
+retry_backoff_seconds = 2
+
+[privacy]
+mask_ips = true
+mask_users = false
+deny_fields = ["password", "passwd", "token", "secret", "authorization", "session", "cookie"]
+allow_fields = []
+
+[analysis]
+top_n = 20
+rare_threshold = 3
+# Bounds in-memory distinct-value aggregation for large exports.
+max_unique_values = 100000

@@ -1,0 +1,4 @@
+{"event":"failed root login","label":1,"score":0.93}
+{"event":"normal service job","label":0,"score":0.08}
+{"event":"suspicious denied action","label":1,"score":0.71}
+{"event":"benign web request","label":0,"score":0.62}

@@ -1,0 +1,67 @@
+[ingestion_agent]
+role = "Splunk export planner and chunk runner on the data/Splunk node"
+model = "qwen2.5-coder:3b"
+max_parallel_chunks = 2
+requires_human_approval = true
+allowed_commands = ["splunk-preflight", "splunk-ingest", "pipeline-splunk", "splunk-stage-tests", "status", "manifest", "verify-manifest"]
+
+[splunk_data_agent]
+role = "Heavy Splunk HEC ingest, SPL export, and checkpoint supervision on soc-storage.example.test"
+model = "qwen2.5-coder:3b"
+max_parallel_chunks = 4
+requires_human_approval = true
+allowed_commands = ["hec-send", "splunk-preflight", "splunk-ingest", "pipeline-splunk", "splunk-stage-tests", "scale-plan", "status"]
+
+[privacy_agent]
+role = "Sensitive data redaction and leakage guard"
+model = "qwen2.5-coder:3b"
+requires_human_approval = false
+allowed_commands = ["ingest-local", "rules-run", "qa-report", "qa-run"]
+
+[analysis_agent]
+role = "SOC statistical analysis and rule triage"
+model = "qwen2.5-coder:3b"
+requires_human_approval = false
+allowed_commands = ["analyze", "rules-run", "train", "evaluate", "evaluate-labeled"]
+
+[data_audit_agent]
+role = "Independent data-usage auditor: verifies chunks, row counts, hashes, rule coverage, and whether every exported row reached the report pipeline"
+model = "qwen2.5-coder:3b"
+requires_human_approval = false
+allowed_commands = ["manifest", "verify-manifest", "data-audit", "qa-run"]
+
+[reporting_agent]
+role = "Markdown/HTML/JSON report builder"
+model = "qwen2.5-coder:3b"
+requires_human_approval = false
+allowed_commands = ["report", "pipeline-local", "site-build"]
+
+[gpu_review_agent]
+role = "GPU-assisted aggregate-only review on soc-gpu.example.test with strict hallucination checks"
+model = "qwen2.5-coder:3b"
+requires_human_approval = false
+allowed_commands = ["gpu-review", "qa-ai-review"]
+
+[report_training_agent]
+role = "Optional Soup-based report model training from redacted QA-approved reports"
+model = "qwen2.5-coder:3b"
+requires_human_approval = true
+allowed_commands = ["report-training-dataset", "soup-report-config", "soup-training-plan", "qa-run", "qa-report"]
+
+[ops_agent]
+role = "Readiness, benchmark, server health, and long-run supervision"
+model = "qwen2.5-coder:3b"
+requires_human_approval = true
+allowed_commands = ["doctor", "benchmark", "manifest", "verify-manifest", "ops-audit", "scale-plan", "monitor"]
+
+[security_agent]
+role = "Port exposure, secret leakage, lossy SPL, and artifact-retention hardening"
+model = "qwen2.5-coder:3b"
+requires_human_approval = true
+allowed_commands = ["doctor", "ops-audit", "qa-report", "qa-run", "qa-ai-review", "splunk-preflight"]
+
+[qa_agent]
+role = "Release quality gate for tests, reports, privacy, integrity, and Splunk readiness"
+model = "qwen2.5-coder:3b"
+requires_human_approval = false
+allowed_commands = ["qa-report", "qa-run", "qa-ai-review", "doctor", "verify-manifest", "ops-audit", "release-status"]
